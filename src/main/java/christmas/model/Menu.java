@@ -22,4 +22,16 @@ public enum Menu {
         this.type = type;
         this.price = price;
     }
+
+    public static Menu gift() {
+        return 샴페인;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }
