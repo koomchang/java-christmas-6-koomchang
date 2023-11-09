@@ -17,11 +17,11 @@ public enum Day {
         this.isWeekend = isWeekend;
     }
 
-    public boolean isWeekend() {
-        return isWeekend;
-    }
-
     public static Day of(int date) {
         return Day.values()[date % DAYS_IN_WEEK];
+    }
+
+    public boolean isWeekend() {
+        return isWeekend;
     }
 }

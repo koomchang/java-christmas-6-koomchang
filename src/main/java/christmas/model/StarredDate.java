@@ -13,4 +13,8 @@ public enum StarredDate {
     StarredDate(int date) {
         this.date = date;
     }
+
+    public int getDate() {
+        return date;
+    }
 }
