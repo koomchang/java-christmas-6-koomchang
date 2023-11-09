@@ -1,7 +1,6 @@
 package christmas.model;
 
 public enum Menu {
-
     양송이수프("애피타이저", 6_000),
     타파스("애피타이저", 5_500),
     시저샐러드("애피타이저", 8_000),

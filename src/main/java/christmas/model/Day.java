@@ -1,7 +1,6 @@
 package christmas.model;
 
 public enum Day {
-
     THURSDAY(false),
     FRIDAY(false),
     SATURDAY(true),
