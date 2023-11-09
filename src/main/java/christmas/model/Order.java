@@ -2,6 +2,7 @@ package christmas.model;
 
 import static christmas.exception.ExceptionMessages.ORDER_INVALID;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -23,9 +24,11 @@ public class Order {
     }
 
     private void validateDuplicateMenu(Map<Menu, Integer> menus) {
-        Set<Menu> uniqueMenus = new HashSet<>(menus.keySet());
-        if (uniqueMenus.size() != menus.size()) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+        EnumSet<Menu> uniqueMenus = EnumSet.noneOf(Menu.class);
+        for (Menu menu : menus.keySet()) {
+            if (!uniqueMenus.add(menu)) {
+                throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            }
         }
     }
 
