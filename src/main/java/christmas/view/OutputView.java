@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.model.Badge;
+import christmas.model.Day;
 import christmas.model.Menu;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -11,10 +12,22 @@ public class OutputView {
     private static final String EVENT_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!" + LINE_SEPARATOR;
     private static final String ORDERED_MENU_MESSAGE = LINE_SEPARATOR + "<주문 메뉴>";
     private static final String EACH_MENU_MESSAGE = "%s %d개" + LINE_SEPARATOR;
-    private static final String TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE =
-            LINE_SEPARATOR + "<할인 전 총주문 금액>" + LINE_SEPARATOR + "%s원" + LINE_SEPARATOR;
-    private static final String GIFT_MENU_MESSAGE = LINE_SEPARATOR + "<증정 메뉴>" + LINE_SEPARATOR + "%s";
-    private static final String EVENT_BADGE_MESSAGE = LINE_SEPARATOR + "<12월 이벤트 배지>" + LINE_SEPARATOR + "%s";
+    private static final String TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE = LINE_SEPARATOR + "<할인 전 총주문 금액>";
+    private static final String TOTAL_PRICE_BEFORE_DISCOUNT = "%s원" + LINE_SEPARATOR;
+    private static final String GIFT_MENU_MESSAGE = LINE_SEPARATOR + "<증정 메뉴>";
+    private static final String GIFT_MENU = "%s" + LINE_SEPARATOR;
+    private static final String BENEFITS_MESSAGE = LINE_SEPARATOR + "<혜택 내역>";
+    private static final String CHRISTMAS_DISCOUNT = "크리스마스 디데이 할인: -%s원" + LINE_SEPARATOR;
+    private static final String WEEKDAY_DISCOUNT = "평일 할인: -%s원" + LINE_SEPARATOR;
+    private static final String WEEKEND_DISCOUNT = "주말 할인: -%s원" + LINE_SEPARATOR;
+    private static final String SPECIAL_DISCOUNT = "특별 할인: -%s원" + LINE_SEPARATOR;
+    private static final String GIFT_EVENT = "증정 이벤트: -%s원" + LINE_SEPARATOR;
+    private static final String TOTAL_BENEFITS_PRICE_MESSAGE = LINE_SEPARATOR + "<총혜택 금액>";
+    private static final String TOTAL_BENEFITS_PRICE = "%s원" + LINE_SEPARATOR;
+    private static final String TOTAL_PRICE_AFTER_DISCOUNT_MESSAGE = LINE_SEPARATOR + "<할인 후 예상 결제 금액>";
+    private static final String TOTAL_PRICE_AFTER_DISCOUNT = "%s원" + LINE_SEPARATOR;
+    private static final String EVENT_BADGE_MESSAGE = LINE_SEPARATOR + "<12월 이벤트 배지>";
+    private static final String EVENT_BADGE = "%s" + LINE_SEPARATOR;
 
     private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
@@ -35,31 +48,52 @@ public class OutputView {
 
     public void printTotalPriceBeforeDiscount(int price) {
         String formatPrice = formatPriceWithComma(price);
-        System.out.printf(TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE, formatPrice);
+        System.out.println(TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE);
+        System.out.printf(TOTAL_PRICE_BEFORE_DISCOUNT, formatPrice);
     }
 
     public void printGiftMenu(boolean isGiftEventEligible) {
+        System.out.println(GIFT_MENU_MESSAGE);
         if (isGiftEventEligible) {
-            System.out.printf(GIFT_MENU_MESSAGE, Menu.gift() + " 1개");
+            System.out.printf(GIFT_MENU, Menu.gift());
             return;
         }
-        System.out.printf(GIFT_MENU_MESSAGE, "없음");
+        System.out.println("없음");
     }
 
-    public void printBenefits() {
-
+    public void printBenefits(int visitDate, int christmasDiscountPrice, int menuDiscount, int specialDiscount,
+                              boolean isGiftEventEligible) {
+        System.out.println(BENEFITS_MESSAGE);
+        if (Day.of(visitDate).isWeekend()) {
+            System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
+            System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
+            System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
+            if (isGiftEventEligible) {
+                System.out.printf(GIFT_EVENT, formatPriceWithComma(Menu.gift().getPrice()));
+            }
+            return;
+        }
+        System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
+        System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(menuDiscount));
+        System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
+        if (isGiftEventEligible) {
+            System.out.printf(GIFT_EVENT, formatPriceWithComma(Menu.gift().getPrice()));
+        }
     }
 
-    public void printTotalBenefitsPrice() {
-
+    public void printTotalBenefitsPrice(int price) {
+        System.out.println(TOTAL_BENEFITS_PRICE_MESSAGE);
+        System.out.printf(TOTAL_BENEFITS_PRICE, formatPriceWithComma(price));
     }
 
-    public void printTotalPriceAfterDiscount() {
-
+    public void printTotalPriceAfterDiscount(int price) {
+        System.out.println(TOTAL_PRICE_AFTER_DISCOUNT_MESSAGE);
+        System.out.printf(TOTAL_PRICE_AFTER_DISCOUNT, formatPriceWithComma(price));
     }
 
     public void printEventBadge(Badge badge) {
-        System.out.printf(EVENT_BADGE_MESSAGE, badge);
+        System.out.println(EVENT_BADGE_MESSAGE);
+        System.out.printf(EVENT_BADGE, badge);
     }
 
     private String formatPriceWithComma(int price) {
