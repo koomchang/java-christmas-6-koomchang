@@ -1,6 +1,10 @@
 package christmas.controller;
 
+import christmas.model.Badge;
+import christmas.model.Day;
+import christmas.model.Event;
 import christmas.model.Menu;
+import christmas.model.Order;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.EnumMap;
@@ -22,12 +26,33 @@ public class ChristmasPromotionController {
         String orders = exceptionHandleAndRetry(inputView::inputOrderMenuAndCount);
         outputView.printEventMessage(visitDate);
         outputView.printOrderedMenu(parseOrderMenuAndCount(orders));
-//        outputView.printTotalPriceBeforeDiscount();
-        outputView.printGiftMenu();
-        outputView.printBenefits();
-        outputView.printTotalBenefitsPrice();
-        outputView.printTotalPriceAfterDiscount();
-//        outputView.printEventBadge();
+        Order order = new Order(parseOrderMenuAndCount(orders));
+        Event event = new Event();
+        int totalPrice = order.getTotalPrice();
+        outputView.printTotalPriceBeforeDiscount(totalPrice);
+        boolean giftEventEligible = event.isGiftEventEligible(totalPrice);
+        outputView.printGiftMenu(giftEventEligible);
+        int christmasDiscount = event.christmasDiscount(visitDate);
+        int menuDiscount = 0;
+        if (Day.of(visitDate).isWeekend()) {
+            menuDiscount = event.menuDiscount(order.getCountOfMainMenu());
+        }
+        if (!Day.of(visitDate).isWeekend()) {
+            menuDiscount = event.menuDiscount(order.getCountOfDesertMenu());
+        }
+        int specialDiscount = event.specialDiscount(visitDate);
+        outputView.printBenefits(visitDate, christmasDiscount, menuDiscount, specialDiscount, giftEventEligible);
+        int totalBenefitsPrice = 0;
+        if (giftEventEligible) {
+            totalBenefitsPrice = christmasDiscount + menuDiscount + specialDiscount + Menu.gift().getPrice();
+        }
+        if (!giftEventEligible) {
+            totalBenefitsPrice = christmasDiscount + menuDiscount + specialDiscount;
+        }
+        outputView.printTotalBenefitsPrice(totalBenefitsPrice);
+        outputView.printTotalPriceAfterDiscount(totalPrice - totalBenefitsPrice);
+        Badge badge = Badge.getBadge(totalBenefitsPrice);
+        outputView.printEventBadge(badge);
     }
 
     private Map<Menu, Integer> parseOrderMenuAndCount(String ordersInput) {
