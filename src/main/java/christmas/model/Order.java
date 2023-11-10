@@ -42,6 +42,12 @@ public class Order {
         }
     }
 
+    public int getTotalPrice() {
+        return menus.keySet().stream()
+                .mapToInt(menu -> menu.getPrice() * menus.get(menu))
+                .sum();
+    }
+
     private boolean hasOnlyBeverage(Map<Menu, Integer> menus) {
         return menus.keySet().stream()
                 .allMatch(menu -> menu.getType().equals("음료"));
@@ -51,5 +57,17 @@ public class Order {
         return menus.keySet().stream()
                 .mapToInt(Menu::getPrice)
                 .sum() >= MINIMUM_PRICE_FOR_EVENT;
+    }
+
+    public int getCountOfMainMenu() {
+        return (int) menus.keySet().stream()
+                .filter(menu -> menu.getType().equals("메인"))
+                .count();
+    }
+
+    public int getCountOfDesertMenu() {
+        return (int) menus.keySet().stream()
+                .filter(menu -> menu.getType().equals("디저트"))
+                .count();
     }
 }
