@@ -4,8 +4,13 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class ChristmasPromotionController {
-    private final OutputView outputView = new OutputView();
-    private final InputView inputView = new InputView();
+    private final OutputView outputView;
+    private final InputView inputView;
+
+    public ChristmasPromotionController(OutputView outputView, InputView inputView) {
+        this.outputView = outputView;
+        this.inputView = inputView;
+    }
 
     public void run() {
         outputView.printWelcomeMessage();

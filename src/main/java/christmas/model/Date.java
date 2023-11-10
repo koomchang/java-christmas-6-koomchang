@@ -1,6 +1,6 @@
 package christmas.model;
 
-import static christmas.exception.ExceptionMessages.DATE_OUT_OF_RANGE;
+import static christmas.exception.ExceptionMessages.DATE_INVALID;
 
 public record Date(int date) {
     private static final int MIN_DATE = 1;
@@ -13,7 +13,7 @@ public record Date(int date) {
 
     private void validate(int date) {
         if (isOutOfRange(date)) {
-            throw new IllegalArgumentException(DATE_OUT_OF_RANGE.getMessage());
+            throw new IllegalArgumentException(DATE_INVALID.getMessage());
         }
     }
 
