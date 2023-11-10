@@ -12,7 +12,7 @@ public enum Badge {
         this.discountRate = discountRate;
     }
 
-    public Badge getBadge(int discountRate) {
+    public static Badge getBadge(int discountRate) {
         if (discountRate >= 20000) {
             return 산타;
         }
