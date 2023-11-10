@@ -3,9 +3,7 @@ package christmas.model;
 import static christmas.exception.ExceptionMessages.ORDER_INVALID;
 
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Order {
     private static final int MINIMUM_PRICE_FOR_EVENT = 10000;
