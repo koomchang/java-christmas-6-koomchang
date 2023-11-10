@@ -20,7 +20,7 @@ public class Event {
     }
 
     public int christmasDiscount(int date) {
-        return CHRISTMAS_BASIC_DISCOUNT + (date * CHRISTMAS_DISCOUNT_RATE);
+        return CHRISTMAS_BASIC_DISCOUNT + ((date - 1) * CHRISTMAS_DISCOUNT_RATE);
     }
 
     public int menuDiscount(int menuCount) {
