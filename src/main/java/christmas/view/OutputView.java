@@ -64,20 +64,33 @@ public class OutputView {
     public void printBenefits(int visitDate, int christmasDiscountPrice, int menuDiscount, int specialDiscount,
                               boolean isGiftEventEligible) {
         System.out.println(BENEFITS_MESSAGE);
+        if (christmasDiscountPrice == 0 && menuDiscount == 0 && specialDiscount == 0) {
+            System.out.println("없음");
+            return;
+        }
         if (Day.of(visitDate).isWeekend()) {
-            System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
-            System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
-            System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
+            if (christmasDiscountPrice != 0) {
+                System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
+            }
+            if (menuDiscount != 0) {
+                System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
+            }
+            if (specialDiscount != 0) {
+                System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
+            }
             if (isGiftEventEligible) {
                 System.out.printf(GIFT_EVENT, formatPriceWithComma(Menu.gift().getPrice()));
             }
             return;
         }
-        System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
-        System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(menuDiscount));
-        System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
-        if (isGiftEventEligible) {
-            System.out.printf(GIFT_EVENT, formatPriceWithComma(Menu.gift().getPrice()));
+        if (christmasDiscountPrice != 0) {
+            System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
+        }
+        if (menuDiscount != 0) {
+            System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
+        }
+        if (specialDiscount != 0) {
+            System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
         }
     }
 

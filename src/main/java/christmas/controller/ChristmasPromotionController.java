@@ -29,6 +29,15 @@ public class ChristmasPromotionController {
         Order order = new Order(parseOrderMenuAndCount(orders));
         Event event = new Event();
         int totalPrice = order.getTotalPrice();
+        if (!order.canParticipateInEvent()) {
+            outputView.printTotalPriceBeforeDiscount(totalPrice);
+            outputView.printGiftMenu(false);
+            outputView.printBenefits(visitDate, 0, 0, 0, false);
+            outputView.printTotalBenefitsPrice(0);
+            outputView.printTotalPriceAfterDiscount(totalPrice);
+            outputView.printEventBadge(Badge.없음);
+            return;
+        }
         outputView.printTotalPriceBeforeDiscount(totalPrice);
         boolean giftEventEligible = event.isGiftEventEligible(totalPrice);
         outputView.printGiftMenu(giftEventEligible);
