@@ -2,9 +2,9 @@ package christmas.model;
 
 public enum Day {
     THURSDAY(false),
-    FRIDAY(false),
+    FRIDAY(true),
     SATURDAY(true),
-    SUNDAY(true),
+    SUNDAY(false),
     MONDAY(false),
     TUESDAY(false),
     WEDNESDAY(false);
