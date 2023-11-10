@@ -87,7 +87,7 @@ public class OutputView {
             System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
         }
         if (menuDiscount != 0) {
-            System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
+            System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(menuDiscount));
         }
         if (specialDiscount != 0) {
             System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));

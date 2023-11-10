@@ -31,7 +31,9 @@ public class Order {
     }
 
     private void validateMenuCount(Map<Menu, Integer> menus) {
-        if (menus.size() > 20) {
+        if (menus.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum() > 20) {
             throw new IllegalArgumentException(ORDER_INVALID.getMessage());
         }
     }

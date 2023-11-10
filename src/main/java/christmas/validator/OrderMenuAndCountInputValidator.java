@@ -20,6 +20,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         validateMenuFormat(input);
         validateMenuInMenuList(menuAndCount);
         validateDuplicateMenu(menuAndCount);
+        validateMenuCount(menuAndCount);
     }
 
     private void validateMenuFormat(String input) {
@@ -69,6 +70,14 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
             if (!uniqueMenus.add(menu)) {
                 throw new IllegalArgumentException(ORDER_INVALID.getMessage());
             }
+        }
+    }
+
+    private void validateMenuCount(Map<Menu, Integer> menus) {
+        if (menus.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum() > 20) {
+            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
         }
     }
 }
