@@ -22,6 +22,15 @@ public enum Menu {
         this.price = price;
     }
 
+    public static Menu of(String menuName) {
+        for (Menu menu : Menu.values()) {
+            if (menu.name().equals(menuName)) {
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException("[ERROR] 존재하지 않는 메뉴입니다.");
+    }
+
     public static Menu gift() {
         return 샴페인;
     }
