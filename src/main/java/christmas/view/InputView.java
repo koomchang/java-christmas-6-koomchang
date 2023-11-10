@@ -9,9 +9,14 @@ public class InputView {
     private static final String ORDER_MENU_AND_COUNT_PROMPT = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
 
     private final BasicValidator<String> visitDateInputValidator;
+    private final BasicValidator<String> orderMenuAndCountInputValidator;
 
-    public InputView(BasicValidator<String> visitDateInputValidator) {
+    public InputView(
+            BasicValidator<String> visitDateInputValidator,
+            BasicValidator<String> orderMenuAndCountInputValidator
+    ) {
         this.visitDateInputValidator = visitDateInputValidator;
+        this.orderMenuAndCountInputValidator = orderMenuAndCountInputValidator;
     }
 
     public int inputVisitDate() {
@@ -23,6 +28,8 @@ public class InputView {
 
     public String inputOrderMenuAndCount() {
         System.out.println(ORDER_MENU_AND_COUNT_PROMPT);
-        return Console.readLine();
+        String input = Console.readLine();
+        orderMenuAndCountInputValidator.validate(input);
+        return input;
     }
 }
