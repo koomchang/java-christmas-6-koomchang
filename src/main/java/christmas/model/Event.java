@@ -19,15 +19,15 @@ public class Event {
         return orderAmount >= GIFT_EVENT_AMOUNT;
     }
 
-    private int christmasDiscount(int date) {
+    public int christmasDiscount(int date) {
         return CHRISTMAS_BASIC_DISCOUNT + (date * CHRISTMAS_DISCOUNT_RATE);
     }
 
-    private int menuDiscount(int menuCount) {
+    public int menuDiscount(int menuCount) {
         return menuCount * DISCOUNT_RATE;
     }
 
-    private int specialDiscount(int date) {
+    public int specialDiscount(int date) {
         for (StarredDate specialDate : StarredDate.values()) {
             if (date == specialDate.getDate()) {
                 return SPECIAL_DISCOUNT;
