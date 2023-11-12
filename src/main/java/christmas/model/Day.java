@@ -16,8 +16,8 @@ public enum Day {
         this.isWeekend = isWeekend;
     }
 
-    public static Day of(int date) {
-        return Day.values()[date % DAYS_IN_WEEK];
+    public static Day of(Date date) {
+        return Day.values()[date.date() % DAYS_IN_WEEK];
     }
 
     public boolean isWeekend() {

@@ -21,21 +21,21 @@ public record Date(int date) {
         return date < MIN_DATE || date > MAX_DATE;
     }
 
-    public boolean isStarred() {
+    public static boolean isStarred(Date date) {
         for (StarredDate starredDate : StarredDate.values()) {
-            if (date == starredDate.getDate()) {
+            if (date.date() == starredDate.getDate()) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isWeekend() {
+    public static boolean isWeekend(Date date) {
         return Day.of(date).isWeekend();
     }
 
-    public boolean isWeekday() {
-        return !isWeekend();
+    public static boolean isWeekday(Date date) {
+        return !isWeekend(date);
     }
 
     public boolean isChristmas() {
