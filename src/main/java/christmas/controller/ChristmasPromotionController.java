@@ -1,9 +1,9 @@
 package christmas.controller;
 
-import christmas.model.Badge;
-import christmas.model.Day;
-import christmas.model.Event;
+import christmas.model.Date;
+import christmas.model.EventPlanner;
 import christmas.model.Menu;
+import christmas.model.Money;
 import christmas.model.Order;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -13,54 +13,42 @@ import java.util.function.Supplier;
 public class ChristmasPromotionController {
     private final OutputView outputView;
     private final InputView inputView;
+    private final EventPlanner eventPlanner;
 
-    public ChristmasPromotionController(OutputView outputView, InputView inputView) {
+    public ChristmasPromotionController(OutputView outputView, InputView inputView, EventPlanner eventPlanner) {
         this.outputView = outputView;
         this.inputView = inputView;
+        this.eventPlanner = eventPlanner;
     }
 
     public void run() {
         outputView.printWelcomeMessage();
-        int visitDate = exceptionHandleAndRetry(inputView::inputVisitDate);
+        Date visitDate = new Date(exceptionHandleAndRetry(inputView::inputVisitDate));
         Map<Menu, Integer> orders = exceptionHandleAndRetry(inputView::inputOrderMenuAndCount);
-        outputView.printEventMessage(visitDate);
+        outputView.printEventMessage(visitDate.date());
         outputView.printOrderedMenu(orders);
         Order order = new Order(orders);
-        Event event = new Event();
-        int totalPrice = order.getTotalPrice();
-        if (!order.canParticipateInEvent()) {
-            outputView.printTotalPriceBeforeDiscount(totalPrice);
-            outputView.printGiftMenu(false);
-            outputView.printBenefits(visitDate, 0, 0, 0, false);
-            outputView.printTotalBenefitsPrice(0);
-            outputView.printTotalPriceAfterDiscount(totalPrice);
-            outputView.printEventBadge(Badge.없음);
-            return;
+        Money totalDiscount = eventPlanner.getTotalDiscountAmount(visitDate, order);
+        outputView.printTotalPriceBeforeDiscount(order.getTotalPrice().value());
+        outputView.printGiftMenu(order.isGiftEventEligible());
+        boolean isWeekend = Date.isWeekend(visitDate);
+        int christmasDiscount = eventPlanner.getChristmasDiscount(visitDate, order).value();
+        int dayDiscount = eventPlanner.getDayDiscount(visitDate, order).value();
+        int giftEventDiscount = eventPlanner.getGiftEventDiscount(visitDate, order).value();
+        if (order.canParticipateInEvent()) {
+            outputView.printBenefits(
+                    isWeekend,
+                    christmasDiscount,
+                    dayDiscount,
+                    giftEventDiscount
+            );
         }
-        outputView.printTotalPriceBeforeDiscount(totalPrice);
-        boolean giftEventEligible = event.isGiftEventEligible(totalPrice);
-        outputView.printGiftMenu(giftEventEligible);
-        int christmasDiscount = event.christmasDiscount(visitDate);
-        int menuDiscount = 0;
-        if (Day.of(visitDate).isWeekend()) {
-            menuDiscount = event.menuDiscount(order.getCountOfMainMenu());
+        if (!order.canParticipateInEvent() || (christmasDiscount == 0 && dayDiscount == 0 && giftEventDiscount == 0)) {
+            outputView.printBenefits();
         }
-        if (!Day.of(visitDate).isWeekend()) {
-            menuDiscount = event.menuDiscount(order.getCountOfDesertMenu());
-        }
-        int specialDiscount = event.specialDiscount(visitDate);
-        outputView.printBenefits(visitDate, christmasDiscount, menuDiscount, specialDiscount, giftEventEligible);
-        int totalBenefitsPrice = 0;
-        if (giftEventEligible) {
-            totalBenefitsPrice = christmasDiscount + menuDiscount + specialDiscount + Menu.gift().getPrice();
-        }
-        if (!giftEventEligible) {
-            totalBenefitsPrice = christmasDiscount + menuDiscount + specialDiscount;
-        }
-        outputView.printTotalBenefitsPrice(totalBenefitsPrice);
-        outputView.printTotalPriceAfterDiscount(totalPrice - totalBenefitsPrice);
-        Badge badge = Badge.getBadge(totalBenefitsPrice);
-        outputView.printEventBadge(badge);
+        outputView.printTotalBenefitsPrice(totalDiscount.value());
+        outputView.printTotalPriceAfterDiscount((order.getTotalPrice().minus(totalDiscount)).value());
+        outputView.printEventBadge(eventPlanner.getBadge(visitDate, order));
     }
 
 
