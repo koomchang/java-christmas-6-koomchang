@@ -10,7 +10,7 @@ public class DayDiscountPolicy implements DiscountPolicy {
     @Override
     public Money calculate(Date eventDate, Order order) {
         if (Date.isWeekday(eventDate)) {
-            return new Money(order.getCountOfDesertMenu() * DISCOUNT_RATE);
+            return new Money(order.getCountOfDessertMenu() * DISCOUNT_RATE);
         }
         return new Money(order.getCountOfMainMenu() * DISCOUNT_RATE);
     }

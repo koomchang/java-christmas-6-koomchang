@@ -57,7 +57,7 @@ public class Order {
 
     private boolean hasOnlyBeverage(Map<Menu, Integer> menus) {
         return menus.keySet().stream()
-                .allMatch(menu -> menu.getType().equals("음료"));
+                .allMatch(Menu::isBeverage);
     }
 
     public boolean canParticipateInEvent() {
@@ -72,13 +72,13 @@ public class Order {
 
     public int getCountOfMainMenu() {
         return (int) menus.keySet().stream()
-                .filter(menu -> menu.getType().equals("메인"))
+                .filter(Menu::isMain)
                 .count();
     }
 
-    public int getCountOfDesertMenu() {
+    public int getCountOfDessertMenu() {
         return (int) menus.keySet().stream()
-                .filter(menu -> menu.getType().equals("디저트"))
+                .filter(Menu::isDessert)
                 .count();
     }
 }
