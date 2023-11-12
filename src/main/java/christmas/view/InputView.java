@@ -1,7 +1,10 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.model.Menu;
 import christmas.validator.BasicValidator;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class InputView {
     private static final String VISIT_DATE_PROMPT = "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
@@ -25,10 +28,25 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
-    public String inputOrderMenuAndCount() {
+    public Map<Menu, Integer> inputOrderMenuAndCount() {
         System.out.println(ORDER_MENU_AND_COUNT_PROMPT);
         String input = Console.readLine();
         orderMenuAndCountInputValidator.validate(input);
-        return input;
+        return parseOrderMenuAndCount(input);
+
+    }
+
+    private Map<Menu, Integer> parseOrderMenuAndCount(String ordersInput) {
+        Map<Menu, Integer> ordersMap = new EnumMap<>(Menu.class);
+        String[] orders = ordersInput.split(",");
+        for (String order : orders) {
+            String[] menuAndCount = order.split("-");
+            String menuName = menuAndCount[0];
+            String countStr = menuAndCount[1];
+            Menu menu = Menu.of(menuName);
+            int count = Integer.parseInt(countStr);
+            ordersMap.put(menu, count);
+        }
+        return ordersMap;
     }
 }

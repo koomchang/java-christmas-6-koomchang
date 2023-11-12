@@ -7,7 +7,6 @@ import christmas.model.Menu;
 import christmas.model.Order;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -23,10 +22,10 @@ public class ChristmasPromotionController {
     public void run() {
         outputView.printWelcomeMessage();
         int visitDate = exceptionHandleAndRetry(inputView::inputVisitDate);
-        String orders = exceptionHandleAndRetry(inputView::inputOrderMenuAndCount);
+        Map<Menu, Integer> orders = exceptionHandleAndRetry(inputView::inputOrderMenuAndCount);
         outputView.printEventMessage(visitDate);
-        outputView.printOrderedMenu(parseOrderMenuAndCount(orders));
-        Order order = new Order(parseOrderMenuAndCount(orders));
+        outputView.printOrderedMenu(orders);
+        Order order = new Order(orders);
         Event event = new Event();
         int totalPrice = order.getTotalPrice();
         if (!order.canParticipateInEvent()) {
@@ -64,19 +63,6 @@ public class ChristmasPromotionController {
         outputView.printEventBadge(badge);
     }
 
-    private Map<Menu, Integer> parseOrderMenuAndCount(String ordersInput) {
-        Map<Menu, Integer> ordersMap = new EnumMap<>(Menu.class);
-        String[] orders = ordersInput.split(",");
-        for (String order : orders) {
-            String[] menuAndCount = order.split("-");
-            String menuName = menuAndCount[0];
-            String countStr = menuAndCount[1];
-            Menu menu = Menu.of(menuName);
-            int count = Integer.parseInt(countStr);
-            ordersMap.put(menu, count);
-        }
-        return ordersMap;
-    }
 
     private <T> T exceptionHandleAndRetry(Supplier<T> supplier) {
         try {
