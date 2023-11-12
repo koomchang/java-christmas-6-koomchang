@@ -1,7 +1,6 @@
 package christmas.model;
 
 public record Money(int value) {
-    private static int MINIMUM_PRICE_FOR_EVENT = 10000;
 
     public Money {
         validate();
@@ -21,11 +20,15 @@ public record Money(int value) {
         return new Money(0);
     }
 
-    public Money add(Money money) {
+    public Money plus(Money money) {
         return new Money(value + money.value);
     }
 
     public boolean isGreaterThanOrEqual(Money minimumPurchaseAmount) {
         return value >= minimumPurchaseAmount.value;
+    }
+
+    public Money minus(Money money) {
+        return new Money(value - money.value);
     }
 }
