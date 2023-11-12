@@ -61,36 +61,40 @@ public class OutputView {
         System.out.println("없음");
     }
 
-    public void printBenefits(int visitDate, int christmasDiscountPrice, int menuDiscount, int specialDiscount,
-                              boolean isGiftEventEligible) {
+    public void printBenefits(boolean isWeekend, int christmasDiscount, int dayDiscount, int specialDiscount) {
         System.out.println(BENEFITS_MESSAGE);
-        if (christmasDiscountPrice == 0 && menuDiscount == 0 && specialDiscount == 0) {
-            System.out.println("없음");
-            return;
+        printBenefitsForChristmasDiscount(christmasDiscount);
+        printBenefitsForWeekday(isWeekend, dayDiscount);
+        printBenefitsForWeekend(isWeekend, dayDiscount);
+        printBenefitsForSpecialDiscount(specialDiscount);
+    }
+
+    public void printBenefits() {
+        System.out.println(BENEFITS_MESSAGE);
+        System.out.println("없음");
+    }
+
+    private void printBenefitsForChristmasDiscount(int christmasDiscount) {
+        if (christmasDiscount > 0) {
+            System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscount));
         }
-        if (Day.of(visitDate).isWeekend()) {
-            if (christmasDiscountPrice != 0) {
-                System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
-            }
-            if (menuDiscount != 0) {
-                System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(menuDiscount));
-            }
-            if (specialDiscount != 0) {
-                System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
-            }
-            if (isGiftEventEligible) {
-                System.out.printf(GIFT_EVENT, formatPriceWithComma(Menu.gift().getPrice()));
-            }
-            return;
-        }
-        if (christmasDiscountPrice != 0) {
-            System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscountPrice));
-        }
-        if (menuDiscount != 0) {
-            System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(menuDiscount));
-        }
-        if (specialDiscount != 0) {
+    }
+
+    private void printBenefitsForSpecialDiscount(int specialDiscount) {
+        if (specialDiscount > 0) {
             System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
+        }
+    }
+
+    private void printBenefitsForWeekend(boolean isWeekend, int weekendDiscount) {
+        if (isWeekend && weekendDiscount > 0) {
+            System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(weekendDiscount));
+        }
+    }
+
+    private void printBenefitsForWeekday(boolean isWeekend, int weekdayDiscount) {
+        if (!isWeekend && weekdayDiscount > 0) {
+            System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(weekdayDiscount));
         }
     }
 
