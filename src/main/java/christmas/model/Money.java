@@ -20,4 +20,8 @@ public record Money(int value) {
     public boolean canParticipateInEvent() {
         return value >= MINIMUM_PRICE_FOR_EVENT;
     }
+
+    public boolean isGreaterThanOrEqual(int minimumPurchaseAmount) {
+        return value >= minimumPurchaseAmount;
+    }
 }
