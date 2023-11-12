@@ -8,8 +8,9 @@ import java.util.EnumSet;
 import java.util.Map;
 
 public class Order {
-    private static final int MINIMUM_PRICE_FOR_EVENT = 10000;
+    private static final int MINIMUM_PRICE_FOR_EVENT = 10_000;
     private static final Money MINIMUM_PURCHASE_AMOUNT = new Money(120_000);
+    private static final int MAX_MENU_COUNT = 20;
 
     private final Map<Menu, Integer> menus;
 
@@ -36,7 +37,7 @@ public class Order {
     private void validateMenuCount(Map<Menu, Integer> menus) {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
-                .sum() > 20) {
+                .sum() > MAX_MENU_COUNT) {
             throw new IllegalArgumentException(ORDER_INVALID.getMessage());
         }
     }

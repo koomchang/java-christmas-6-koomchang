@@ -16,7 +16,7 @@ public record Money(int value) {
         }
     }
 
-    public static Money init() {
+    public static Money zero() {
         return new Money(0);
     }
 

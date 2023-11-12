@@ -5,7 +5,6 @@ import christmas.model.vo.Money;
 
 public class SpecialDiscount {
     private static final int SPECIAL_DISCOUNT = 1000;
-    private static final int NO_DISCOUNT = 0;
 
     private final Money discountAmount;
 
@@ -14,9 +13,9 @@ public class SpecialDiscount {
     }
 
     public Money calculate(Date eventDate) {
-        if (Date.isStarred(eventDate)) {
+        if (Date.isSpecial(eventDate)) {
             return new Money(SPECIAL_DISCOUNT);
         }
-        return new Money(NO_DISCOUNT);
+        return Money.zero();
     }
 }

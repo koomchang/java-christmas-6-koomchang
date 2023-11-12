@@ -5,7 +5,7 @@ import christmas.model.vo.Date;
 import christmas.model.vo.Money;
 
 public class DayDiscountPolicy implements DiscountPolicy {
-    private static final int DISCOUNT_RATE = 2023;
+    private static final int DISCOUNT_RATE = 2_023;
 
     @Override
     public Money calculate(Date eventDate, Order order) {

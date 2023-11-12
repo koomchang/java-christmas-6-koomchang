@@ -27,6 +27,7 @@ public class OutputView {
     private static final String TOTAL_PRICE_AFTER_DISCOUNT = "%s원" + LINE_SEPARATOR;
     private static final String EVENT_BADGE_MESSAGE = LINE_SEPARATOR + "<12월 이벤트 배지>";
     private static final String EVENT_BADGE = "%s" + LINE_SEPARATOR;
+    private static final String NOTHING = "없음";
 
     private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
@@ -57,7 +58,7 @@ public class OutputView {
             System.out.printf(GIFT_MENU, Menu.gift());
             return;
         }
-        System.out.println("없음");
+        System.out.println(NOTHING);
     }
 
     public void printBenefits(boolean isWeekend, int christmasDiscount, int dayDiscount, int specialDiscount) {
@@ -70,7 +71,7 @@ public class OutputView {
 
     public void printBenefits() {
         System.out.println(BENEFITS_MESSAGE);
-        System.out.println("없음");
+        System.out.println(NOTHING);
     }
 
     private void printBenefitsForChristmasDiscount(int christmasDiscount) {

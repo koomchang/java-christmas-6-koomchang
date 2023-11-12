@@ -8,6 +8,7 @@ import java.util.EnumSet;
 import java.util.Map;
 
 public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
+    private static final int MAX_MENU_COUNT = 20;
 
     private final Map<Menu, Integer> menuAndCount;
 
@@ -76,7 +77,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
     private void validateMenuCount(Map<Menu, Integer> menus) {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
-                .sum() > 20) {
+                .sum() > MAX_MENU_COUNT) {
             throw new IllegalArgumentException(ORDER_INVALID.getMessage());
         }
     }

@@ -13,11 +13,10 @@ public class GiftEventPolicy implements DiscountPolicy {
         if (isGiftEventEligible(order.getTotalPrice())) {
             return GIFT_EVENT_DISCOUNT;
         }
-        return new Money(0);
+        return Money.zero();
     }
 
     public boolean isGiftEventEligible(Money orderAmount) {
         return orderAmount.isGreaterThanOrEqual(MINIMUM_PURCHASE_AMOUNT);
     }
-
 }

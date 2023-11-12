@@ -24,7 +24,7 @@ public record Date(int date) {
         return date < MIN_DATE || date > MAX_DATE;
     }
 
-    public static boolean isStarred(Date date) {
+    public static boolean isSpecial(Date date) {
         for (SpecialDate specialDate : SpecialDate.values()) {
             if (date.date() == specialDate.getDate()) {
                 return true;
