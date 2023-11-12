@@ -5,6 +5,7 @@ import christmas.model.EventPlanner;
 import christmas.model.policy.ChristmasDiscountPolicy;
 import christmas.model.policy.DayDiscountPolicy;
 import christmas.model.policy.GiftEventPolicy;
+import christmas.model.policy.SpecialDiscountPolicy;
 import christmas.validator.OrderMenuAndCountInputValidator;
 import christmas.validator.VisitDateInputValidator;
 import christmas.view.InputView;
@@ -15,7 +16,8 @@ public class Application {
         EventPlanner eventPlanner = new EventPlanner(
                 new ChristmasDiscountPolicy(),
                 new DayDiscountPolicy(),
-                new GiftEventPolicy()
+                new GiftEventPolicy(),
+                new SpecialDiscountPolicy()
         );
 
         ChristmasPromotionController christmasPromotionController = new ChristmasPromotionController(

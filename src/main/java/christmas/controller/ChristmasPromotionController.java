@@ -46,7 +46,9 @@ public class ChristmasPromotionController {
         int christmasDiscount = eventPlanner.getChristmasDiscount(visitDate, order).value();
         int dayDiscount = eventPlanner.getDayDiscount(visitDate, order).value();
         int giftEventDiscount = eventPlanner.getGiftEventDiscount(visitDate, order).value();
-        if (!order.canParticipateInEvent() || (christmasDiscount == 0 && dayDiscount == 0 && giftEventDiscount == 0)) {
+        int specialDiscount = eventPlanner.getSpecialDiscount(visitDate, order).value();
+        if (!order.canParticipateInEvent() || (christmasDiscount == 0 && dayDiscount == 0 && giftEventDiscount == 0
+                && specialDiscount == 0)) {
             outputView.printBenefits();
         }
         if (order.canParticipateInEvent()) {
@@ -54,6 +56,7 @@ public class ChristmasPromotionController {
                     isVisitDateWeekend,
                     christmasDiscount,
                     dayDiscount,
+                    specialDiscount,
                     giftEventDiscount
             );
         }
