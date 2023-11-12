@@ -1,7 +1,6 @@
 package christmas.validator;
 
-import static christmas.exception.ExceptionMessages.ORDER_INVALID;
-
+import christmas.exception.OrderInvalidException;
 import christmas.model.enums.Menu;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -41,26 +40,26 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         try {
             Integer.parseInt(count);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 
     private void validateIfMenuAndCountEmpty(String menu, String count) {
         if (menu.isEmpty() || count.isEmpty()) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 
     private void validateMenuAndCountLength(String[] menuAndCount) {
         if (menuAndCount.length != 2) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 
     private void validateMenuInMenuList(Map<Menu, Integer> menus) {
         for (Menu menu : menus.keySet()) {
             if (!menuAndCount.containsKey(menu)) {
-                throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+                throw new OrderInvalidException();
             }
         }
     }
@@ -69,7 +68,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         EnumSet<Menu> uniqueMenus = EnumSet.noneOf(Menu.class);
         for (Menu menu : menus.keySet()) {
             if (!uniqueMenus.add(menu)) {
-                throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+                throw new OrderInvalidException();
             }
         }
     }
@@ -78,7 +77,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum() > MAX_MENU_COUNT) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 }

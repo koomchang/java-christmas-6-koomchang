@@ -1,6 +1,6 @@
 package christmas.validator;
 
-import static christmas.exception.ExceptionMessages.DATE_INVALID;
+import christmas.exception.DateInvalidException;
 
 public class VisitDateInputValidator implements BasicValidator<String> {
     private static final int MIN_DATE = 1;
@@ -16,14 +16,14 @@ public class VisitDateInputValidator implements BasicValidator<String> {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(DATE_INVALID.getMessage());
+            throw new DateInvalidException();
         }
     }
 
     private void validateIfDateOutOfRange(String input) {
         int date = Integer.parseInt(input);
         if (isOutOfRange(date)) {
-            throw new IllegalArgumentException(DATE_INVALID.getMessage());
+            throw new DateInvalidException();
         }
     }
 

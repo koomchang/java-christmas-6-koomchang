@@ -1,9 +1,9 @@
 package christmas;
 
 import christmas.controller.ChristmasPromotionController;
+import christmas.model.EventPlanner;
 import christmas.model.policy.ChristmasDiscountPolicy;
 import christmas.model.policy.DayDiscountPolicy;
-import christmas.model.EventPlanner;
 import christmas.model.policy.GiftEventPolicy;
 import christmas.validator.OrderMenuAndCountInputValidator;
 import christmas.validator.VisitDateInputValidator;

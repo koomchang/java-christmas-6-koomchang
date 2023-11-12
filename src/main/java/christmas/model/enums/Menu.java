@@ -1,5 +1,7 @@
 package christmas.model.enums;
 
+import christmas.exception.OrderInvalidException;
+
 public enum Menu {
     양송이수프(MenuType.애피타이저, 6_000),
     타파스(MenuType.애피타이저, 5_500),
@@ -32,7 +34,7 @@ public enum Menu {
                 return menu;
             }
         }
-        throw new IllegalArgumentException("[ERROR] 존재하지 않는 메뉴입니다.");
+        throw new OrderInvalidException();
     }
 
     public static Menu gift() {

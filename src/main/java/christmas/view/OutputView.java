@@ -67,6 +67,7 @@ public class OutputView {
         printBenefitsForWeekday(isWeekend, dayDiscount);
         printBenefitsForWeekend(isWeekend, dayDiscount);
         printBenefitsForSpecialDiscount(specialDiscount);
+        printBenefitsForGiftEvent(specialDiscount);
     }
 
     public void printBenefits() {
@@ -95,6 +96,12 @@ public class OutputView {
     private void printBenefitsForWeekday(boolean isWeekend, int weekdayDiscount) {
         if (!isWeekend && weekdayDiscount > 0) {
             System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(weekdayDiscount));
+        }
+    }
+
+    private void printBenefitsForGiftEvent(int giftEventDiscount) {
+        if (giftEventDiscount > 0) {
+            System.out.printf(GIFT_EVENT, formatPriceWithComma(giftEventDiscount));
         }
     }
 

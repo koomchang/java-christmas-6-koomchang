@@ -1,7 +1,6 @@
 package christmas.model.vo;
 
-import static christmas.exception.ExceptionMessages.DATE_INVALID;
-
+import christmas.exception.DateInvalidException;
 import christmas.model.enums.Day;
 import christmas.model.enums.SpecialDate;
 
@@ -16,7 +15,7 @@ public record Date(int date) {
 
     private void validate(int date) {
         if (isOutOfRange(date)) {
-            throw new IllegalArgumentException(DATE_INVALID.getMessage());
+            throw new DateInvalidException();
         }
     }
 
@@ -48,5 +47,4 @@ public record Date(int date) {
     public static boolean isChristmasEventPeriod(Date date) {
         return date.date >= MIN_DATE && date.date <= CHRISTMAS;
     }
-
 }

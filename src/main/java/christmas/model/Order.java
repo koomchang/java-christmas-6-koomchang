@@ -1,7 +1,6 @@
 package christmas.model;
 
-import static christmas.exception.ExceptionMessages.ORDER_INVALID;
-
+import christmas.exception.OrderInvalidException;
 import christmas.model.enums.Menu;
 import christmas.model.vo.Money;
 import java.util.EnumSet;
@@ -29,7 +28,7 @@ public class Order {
         EnumSet<Menu> uniqueMenus = EnumSet.noneOf(Menu.class);
         for (Menu menu : menus.keySet()) {
             if (!uniqueMenus.add(menu)) {
-                throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+                throw new OrderInvalidException();
             }
         }
     }
@@ -38,13 +37,13 @@ public class Order {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum() > MAX_MENU_COUNT) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 
     private void validateOnlyBeverage(Map<Menu, Integer> menus) {
         if (hasOnlyBeverage(menus)) {
-            throw new IllegalArgumentException(ORDER_INVALID.getMessage());
+            throw new OrderInvalidException();
         }
     }
 
