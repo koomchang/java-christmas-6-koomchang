@@ -11,10 +11,8 @@ public class SpecialDiscount {
     }
 
     public Money calculate(Date eventDate) {
-        for (StarredDate specialDate : StarredDate.values()) {
-            if (Date.isStarred(eventDate)) {
-                return new Money(SPECIAL_DISCOUNT);
-            }
+        if (Date.isStarred(eventDate)) {
+            return new Money(SPECIAL_DISCOUNT);
         }
         return new Money(NO_DISCOUNT);
     }
