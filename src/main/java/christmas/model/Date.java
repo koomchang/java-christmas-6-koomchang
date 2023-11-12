@@ -42,8 +42,8 @@ public record Date(int date) {
         return date == CHRISTMAS;
     }
 
-    public static boolean isChristmasEventPeriod(int date) {
-        return date >= MIN_DATE && date <= CHRISTMAS;
+    public static boolean isChristmasEventPeriod(Date date) {
+        return date.date >= MIN_DATE && date.date <= CHRISTMAS;
     }
 
 }
