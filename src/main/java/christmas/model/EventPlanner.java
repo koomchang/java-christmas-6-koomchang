@@ -8,12 +8,12 @@ public class Event {
     private static final int GIFT_EVENT_AMOUNT = 120000;
     private static final int NO_DISCOUNT = 0;
 
-    public int totalDiscount(int date, int menuCount) {
-        if (Date.isChristmasEventPeriod(date)) {
-            return christmasDiscount(date) + menuDiscount(menuCount) + specialDiscount(date);
-        }
-        return menuDiscount(menuCount) + specialDiscount(date);
-    }
+//    public int totalDiscount(int date, int menuCount) {
+//        if (Date.isChristmasEventPeriod(date)) {
+//            return christmasDiscount(date) + menuDiscount(menuCount) + specialDiscount(date);
+//        }
+//        return menuDiscount(menuCount) + specialDiscount(date);
+//    }
 
     public boolean isGiftEventEligible(int orderAmount) {
         return orderAmount >= GIFT_EVENT_AMOUNT;

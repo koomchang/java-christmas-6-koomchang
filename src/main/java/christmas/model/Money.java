@@ -17,8 +17,17 @@ public record Money(int value) {
         }
     }
 
+    public static Money init() {
+        return new Money(0);
+    }
+
     public boolean canParticipateInEvent() {
         return value >= MINIMUM_PRICE_FOR_EVENT;
+    }
+
+
+    public Money add(Money money) {
+        return new Money(value + money.value);
     }
 
     public boolean isGreaterThanOrEqual(int minimumPurchaseAmount) {
