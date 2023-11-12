@@ -1,12 +1,12 @@
 package christmas.model;
 
-public class GiftEvent {
+public class GiftEventPolicy {
     private static final int MINIMUM_PURCHASE_AMOUNT = 120_000;
     private static final int GIFT_EVENT_DISCOUNT = 25000;
 
     private final boolean isGiftEventEligible;
 
-    public GiftEvent(boolean isGiftEventEligible) {
+    public GiftEventPolicy(boolean isGiftEventEligible) {
         this.isGiftEventEligible = isGiftEventEligible;
     }
 

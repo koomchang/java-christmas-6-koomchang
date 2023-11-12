@@ -1,11 +1,11 @@
 package christmas.model;
 
-public class DayDiscount {
+public class DayDiscountPolicy {
     private static final int DISCOUNT_RATE = 2023;
 
     private final Money discountAmount;
 
-    public DayDiscount(Money discountAmount) {
+    public DayDiscountPolicy(Money discountAmount) {
         this.discountAmount = discountAmount;
     }
 
