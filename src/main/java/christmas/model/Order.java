@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Order {
     private static final int MINIMUM_PRICE_FOR_EVENT = 10000;
+    private static final Money MINIMUM_PURCHASE_AMOUNT = new Money(120_000);
 
     private final Map<Menu, Integer> menus;
 
@@ -60,6 +61,10 @@ public class Order {
         return menus.keySet().stream()
                 .mapToInt(Menu::getPrice)
                 .sum() >= MINIMUM_PRICE_FOR_EVENT;
+    }
+
+    public boolean isGiftEventEligible() {
+        return getTotalPrice().isGreaterThanOrEqual(MINIMUM_PURCHASE_AMOUNT);
     }
 
     public int getCountOfMainMenu() {
