@@ -1,4 +1,6 @@
-package christmas.model;
+package christmas.model.enums;
+
+import christmas.model.vo.Date;
 
 public enum Day {
     THURSDAY(false),

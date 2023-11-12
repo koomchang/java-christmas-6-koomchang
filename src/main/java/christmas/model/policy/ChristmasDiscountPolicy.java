@@ -1,4 +1,8 @@
-package christmas.model;
+package christmas.model.policy;
+
+import christmas.model.Order;
+import christmas.model.vo.Date;
+import christmas.model.vo.Money;
 
 public class ChristmasDiscountPolicy implements DiscountPolicy {
     private static final int CHRISTMAS_BASIC_DISCOUNT = 1000;

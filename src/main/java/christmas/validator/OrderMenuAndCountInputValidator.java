@@ -2,7 +2,7 @@ package christmas.validator;
 
 import static christmas.exception.ExceptionMessages.ORDER_INVALID;
 
-import christmas.model.Menu;
+import christmas.model.enums.Menu;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;

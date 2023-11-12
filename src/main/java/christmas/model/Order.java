@@ -2,6 +2,8 @@ package christmas.model;
 
 import static christmas.exception.ExceptionMessages.ORDER_INVALID;
 
+import christmas.model.enums.Menu;
+import christmas.model.vo.Money;
 import java.util.EnumSet;
 import java.util.Map;
 

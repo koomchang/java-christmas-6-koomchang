@@ -1,4 +1,6 @@
-package christmas.model;
+package christmas.model.enums;
+
+import christmas.model.vo.Money;
 
 public enum Badge {
     산타(20000),

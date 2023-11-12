@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.enums;
 
 public enum StarredDate {
     THIRD(3),

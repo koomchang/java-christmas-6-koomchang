@@ -1,4 +1,8 @@
-package christmas.model;
+package christmas.model.policy;
+
+import christmas.model.Order;
+import christmas.model.vo.Date;
+import christmas.model.vo.Money;
 
 public class DayDiscountPolicy implements DiscountPolicy {
     private static final int DISCOUNT_RATE = 2023;

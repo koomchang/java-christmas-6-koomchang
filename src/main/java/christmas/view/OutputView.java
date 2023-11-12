@@ -1,7 +1,7 @@
 package christmas.view;
 
-import christmas.model.Badge;
-import christmas.model.Menu;
+import christmas.model.enums.Badge;
+import christmas.model.enums.Menu;
 import java.text.DecimalFormat;
 import java.util.Map;
 

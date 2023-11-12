@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.model.Menu;
+import christmas.model.enums.Menu;
 import christmas.validator.BasicValidator;
 import java.util.EnumMap;
 import java.util.Map;

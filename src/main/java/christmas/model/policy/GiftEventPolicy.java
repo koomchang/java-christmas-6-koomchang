@@ -1,4 +1,8 @@
-package christmas.model;
+package christmas.model.policy;
+
+import christmas.model.Order;
+import christmas.model.vo.Date;
+import christmas.model.vo.Money;
 
 public class GiftEventPolicy implements DiscountPolicy {
     private static final Money MINIMUM_PURCHASE_AMOUNT = new Money(120_000);

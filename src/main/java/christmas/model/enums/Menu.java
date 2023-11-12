@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.enums;
 
 public enum Menu {
     양송이수프("애피타이저", 6_000),

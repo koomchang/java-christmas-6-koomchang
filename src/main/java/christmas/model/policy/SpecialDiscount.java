@@ -1,4 +1,7 @@
-package christmas.model;
+package christmas.model.policy;
+
+import christmas.model.vo.Date;
+import christmas.model.vo.Money;
 
 public class SpecialDiscount {
     private static final int SPECIAL_DISCOUNT = 1000;

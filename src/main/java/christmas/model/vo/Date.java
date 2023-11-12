@@ -1,6 +1,9 @@
-package christmas.model;
+package christmas.model.vo;
 
 import static christmas.exception.ExceptionMessages.DATE_INVALID;
+
+import christmas.model.enums.Day;
+import christmas.model.enums.StarredDate;
 
 public record Date(int date) {
     private static final int MIN_DATE = 1;

@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.vo;
 
 public record Money(int value) {
 
