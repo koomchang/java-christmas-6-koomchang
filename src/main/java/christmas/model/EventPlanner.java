@@ -30,7 +30,7 @@ public class EventPlanner {
         return Money.zero()
                 .plus(getChristmasDiscount(eventDate, order))
                 .plus(getDayDiscount(eventDate, order))
-                .plus(getGiftEventDiscount(eventDate, order));
+                .plus(getSpecialDiscount(eventDate, order));
     }
 
     public Money getChristmasDiscount(Date eventDate, Order order) {
