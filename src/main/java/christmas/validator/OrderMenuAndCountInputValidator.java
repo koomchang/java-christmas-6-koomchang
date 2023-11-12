@@ -20,6 +20,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         validateMenuFormat(input);
         validateMenuInMenuList(menuAndCount);
         validateDuplicateMenu(menuAndCount);
+        validateOnlyBeverage(menuAndCount);
         validateMenuCount(menuAndCount);
     }
 
@@ -34,6 +35,17 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
             validateIfCountNumeric(count);
             this.menuAndCount.put(Menu.of(menu), Integer.parseInt(count));
         }
+    }
+
+    private void validateOnlyBeverage(Map<Menu, Integer> menus) {
+        if (hasOnlyBeverage(menus)) {
+            throw new OrderInvalidException();
+        }
+    }
+
+    private boolean hasOnlyBeverage(Map<Menu, Integer> menus) {
+        return menus.keySet().stream()
+                .allMatch(Menu::isBeverage);
     }
 
     private void validateIfCountNumeric(String count) {

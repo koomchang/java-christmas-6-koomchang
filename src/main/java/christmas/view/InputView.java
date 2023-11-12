@@ -33,7 +33,6 @@ public class InputView {
         String input = Console.readLine();
         orderMenuAndCountInputValidator.validate(input);
         return parseOrderMenuAndCount(input);
-
     }
 
     private Map<Menu, Integer> parseOrderMenuAndCount(String ordersInput) {
