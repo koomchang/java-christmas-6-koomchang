@@ -1,38 +1,40 @@
 package christmas.model;
 
-public class Event {
-    private static final int CHRISTMAS_BASIC_DISCOUNT = 1000;
-    private static final int CHRISTMAS_DISCOUNT_RATE = 100;
-    private static final int DISCOUNT_RATE = 2023;
-    private static final int SPECIAL_DISCOUNT = 1000;
-    private static final int GIFT_EVENT_AMOUNT = 120000;
-    private static final int NO_DISCOUNT = 0;
+public class EventPlanner {
+    private final DiscountPolicy christmasDiscountPolicy;
+    private final DiscountPolicy dayDiscountPolicy;
+    private final DiscountPolicy giftEventPolicy;
 
-//    public int totalDiscount(int date, int menuCount) {
-//        if (Date.isChristmasEventPeriod(date)) {
-//            return christmasDiscount(date) + menuDiscount(menuCount) + specialDiscount(date);
-//        }
-//        return menuDiscount(menuCount) + specialDiscount(date);
-//    }
-
-    public boolean isGiftEventEligible(int orderAmount) {
-        return orderAmount >= GIFT_EVENT_AMOUNT;
+    public EventPlanner(
+            DiscountPolicy christmasDiscountPolicy,
+            DiscountPolicy dayDiscountPolicy,
+            DiscountPolicy giftEventPolicy
+    ) {
+        this.christmasDiscountPolicy = christmasDiscountPolicy;
+        this.dayDiscountPolicy = dayDiscountPolicy;
+        this.giftEventPolicy = giftEventPolicy;
     }
 
-    public int christmasDiscount(int date) {
-        return CHRISTMAS_BASIC_DISCOUNT + ((date - 1) * CHRISTMAS_DISCOUNT_RATE);
+    public Money getTotalDiscountAmount(Date eventDate, Order order) {
+        return Money.init()
+                .add(getChristmasDiscount(eventDate, order))
+                .add(getDayDiscount(eventDate, order))
+                .add(getGiftEventDiscount(eventDate, order));
     }
 
-    public int menuDiscount(int menuCount) {
-        return menuCount * DISCOUNT_RATE;
+    public Money getChristmasDiscount(Date eventDate, Order order) {
+        return christmasDiscountPolicy.calculate(eventDate, order);
     }
 
-    public int specialDiscount(int date) {
-        for (StarredDate specialDate : StarredDate.values()) {
-            if (date == specialDate.getDate()) {
-                return SPECIAL_DISCOUNT;
-            }
-        }
-        return NO_DISCOUNT;
+    public Money getDayDiscount(Date eventDate, Order order) {
+        return dayDiscountPolicy.calculate(eventDate, order);
+    }
+
+    public Money getGiftEventDiscount(Date eventDate, Order order) {
+        return giftEventPolicy.calculate(eventDate, order);
+    }
+
+    public Badge getBadge(Date eventDate, Order order) {
+        return Badge.getBadge(getTotalDiscountAmount(eventDate, order));
     }
 }
