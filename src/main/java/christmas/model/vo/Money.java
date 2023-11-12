@@ -1,6 +1,7 @@
 package christmas.model.vo;
 
 public record Money(int value) {
+    private static final int ZERO = 0;
 
     public Money {
         validate();
@@ -11,13 +12,13 @@ public record Money(int value) {
     }
 
     private void validateMoneyNotNegative() {
-        if (value < 0) {
+        if (value < ZERO) {
             throw new IllegalArgumentException("음수는 입력할 수 없습니다.");
         }
     }
 
     public static Money zero() {
-        return new Money(0);
+        return new Money(ZERO);
     }
 
     public Money plus(Money money) {

@@ -28,6 +28,7 @@ public class OutputView {
     private static final String EVENT_BADGE_MESSAGE = LINE_SEPARATOR + "<12월 이벤트 배지>";
     private static final String EVENT_BADGE = "%s" + LINE_SEPARATOR;
     private static final String NOTHING = "없음";
+    private static final int ZERO = 0;
 
     private final DecimalFormat decimalFormat = new DecimalFormat("#,###");
 
@@ -77,31 +78,31 @@ public class OutputView {
     }
 
     private void printBenefitsForChristmasDiscount(int christmasDiscount) {
-        if (christmasDiscount > 0) {
+        if (christmasDiscount > ZERO) {
             System.out.printf(CHRISTMAS_DISCOUNT, formatPriceWithComma(christmasDiscount));
         }
     }
 
     private void printBenefitsForSpecialDiscount(int specialDiscount) {
-        if (specialDiscount > 0) {
+        if (specialDiscount > ZERO) {
             System.out.printf(SPECIAL_DISCOUNT, formatPriceWithComma(specialDiscount));
         }
     }
 
     private void printBenefitsForWeekend(boolean isWeekend, int weekendDiscount) {
-        if (isWeekend && weekendDiscount > 0) {
+        if (isWeekend && weekendDiscount > ZERO) {
             System.out.printf(WEEKEND_DISCOUNT, formatPriceWithComma(weekendDiscount));
         }
     }
 
     private void printBenefitsForWeekday(boolean isWeekend, int weekdayDiscount) {
-        if (!isWeekend && weekdayDiscount > 0) {
+        if (!isWeekend && weekdayDiscount > ZERO) {
             System.out.printf(WEEKDAY_DISCOUNT, formatPriceWithComma(weekdayDiscount));
         }
     }
 
     private void printBenefitsForGiftEvent(int giftEventDiscount) {
-        if (giftEventDiscount > 0) {
+        if (giftEventDiscount > ZERO) {
             System.out.printf(GIFT_EVENT, formatPriceWithComma(giftEventDiscount));
         }
     }

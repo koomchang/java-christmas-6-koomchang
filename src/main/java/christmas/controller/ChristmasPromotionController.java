@@ -23,43 +23,45 @@ public class ChristmasPromotionController {
 
     public void run() {
         outputView.printWelcomeMessage();
-        Date visitDate = new Date(exceptionHandleAndRetry(inputView::inputVisitDate));
+        Date eventDate = new Date(exceptionHandleAndRetry(inputView::inputVisitDate));
         Map<Menu, Integer> orders = exceptionHandleAndRetry(inputView::inputOrderMenuAndCount);
-        processEventPlan(visitDate, orders);
+        processEventPlan(eventDate, orders);
     }
 
-    private void processEventPlan(Date visitDate, Map<Menu, Integer> orders) {
-        outputView.printEventMessage(visitDate.date());
+    private void processEventPlan(Date eventDate, Map<Menu, Integer> orders) {
+        outputView.printEventMessage(eventDate.date());
         outputView.printOrderedMenu(orders);
         Order order = new Order(orders);
-        Money totalDiscount = eventPlanner.getTotalDiscountAmount(visitDate, order);
+        Money totalDiscount = eventPlanner.getTotalDiscountAmount(eventDate, order);
         outputView.printTotalPriceBeforeDiscount(order.getTotalPrice().value());
         outputView.printGiftMenu(order.isGiftEventEligible());
-        printBenefits(order, visitDate);
+        printBenefits(order, eventDate);
         outputView.printTotalBenefitsPrice(totalDiscount.value());
         outputView.printTotalPriceAfterDiscount(order.getTotalPrice().minus(totalDiscount).value());
-        outputView.printEventBadge(eventPlanner.getBadge(visitDate, order));
+        outputView.printEventBadge(eventPlanner.getBadge(eventDate, order));
     }
 
-    private void printBenefits(Order order, Date visitDate) {
-        boolean isVisitDateWeekend = Date.isWeekend(visitDate);
-        int christmasDiscount = eventPlanner.getChristmasDiscount(visitDate, order).value();
-        int dayDiscount = eventPlanner.getDayDiscount(visitDate, order).value();
-        int giftEventDiscount = eventPlanner.getGiftEventDiscount(visitDate, order).value();
-        int specialDiscount = eventPlanner.getSpecialDiscount(visitDate, order).value();
-        if (!order.canParticipateInEvent() || (christmasDiscount == 0 && dayDiscount == 0 && giftEventDiscount == 0
-                && specialDiscount == 0)) {
+    private void printBenefits(Order order, Date eventDate) {
+        boolean isVisitDateWeekend = Date.isWeekend(eventDate);
+        int christmasDiscount = eventPlanner.getChristmasDiscount(eventDate, order).value();
+        int dayDiscount = eventPlanner.getDayDiscount(eventDate, order).value();
+        int giftEventDiscount = eventPlanner.getGiftEventDiscount(eventDate, order).value();
+        int specialDiscount = eventPlanner.getSpecialDiscount(eventDate, order).value();
+        if (!order.canParticipateInEvent() ||
+                hasNoDiscount(christmasDiscount, dayDiscount, giftEventDiscount, specialDiscount)) {
             outputView.printBenefits();
         }
         if (order.canParticipateInEvent()) {
             outputView.printBenefits(
-                    isVisitDateWeekend,
-                    christmasDiscount,
-                    dayDiscount,
-                    specialDiscount,
-                    giftEventDiscount
+                    isVisitDateWeekend, christmasDiscount, dayDiscount, specialDiscount, giftEventDiscount
             );
         }
+    }
+
+    private boolean hasNoDiscount(int christmasDiscount, int dayDiscount, int giftEventDiscount,
+                                  int specialDiscount) {
+        return christmasDiscount == 0 && dayDiscount == 0 && giftEventDiscount == 0
+                && specialDiscount == 0;
     }
 
     private <T> T exceptionHandleAndRetry(Supplier<T> supplier) {
