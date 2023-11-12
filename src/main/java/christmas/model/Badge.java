@@ -6,20 +6,25 @@ public enum Badge {
     별(5000),
     없음(0);
 
-    private final int discountRate;
+    private static final Money Santa = new Money(20000);
+    private static final Money Tree = new Money(10000);
+    private static final Money Star = new Money(5000);
+
+
+    private final Money discountRate;
 
     Badge(int discountRate) {
-        this.discountRate = discountRate;
+        this.discountRate = new Money(discountRate);
     }
 
-    public static Badge getBadge(int discountRate) {
-        if (discountRate >= 20000) {
+    public static Badge getBadge(Money totalDiscountAmount) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(Santa)) {
             return 산타;
         }
-        if (discountRate >= 10000) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(Tree)) {
             return 트리;
         }
-        if (discountRate >= 5000) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(Star)) {
             return 별;
         }
         return 없음;
