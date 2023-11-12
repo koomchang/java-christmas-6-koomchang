@@ -44,10 +44,11 @@ public class Order {
         }
     }
 
-    public int getTotalPrice() {
-        return menus.keySet().stream()
+    public Money getTotalPrice() {
+        int totalPriceValue = menus.keySet().stream()
                 .mapToInt(menu -> menu.getPrice() * menus.get(menu))
                 .sum();
+        return new Money(totalPriceValue);
     }
 
     private boolean hasOnlyBeverage(Map<Menu, Integer> menus) {
