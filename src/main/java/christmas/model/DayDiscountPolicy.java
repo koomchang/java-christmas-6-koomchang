@@ -1,15 +1,13 @@
 package christmas.model;
 
-public class DayDiscountPolicy {
+public class DayDiscountPolicy implements DiscountPolicy {
     private static final int DISCOUNT_RATE = 2023;
 
-    private final Money discountAmount;
-
-    public DayDiscountPolicy(Money discountAmount) {
-        this.discountAmount = discountAmount;
-    }
-
-    public Money calculate(Date eventDate, int menuCount) {
-        return new Money(menuCount * DISCOUNT_RATE);
+    @Override
+    public Money calculate(Date eventDate, Order order) {
+        if (Date.isWeekday(eventDate)) {
+            return new Money(order.getCountOfDesertMenu() * DISCOUNT_RATE);
+        }
+        return new Money(order.getCountOfMainMenu() * DISCOUNT_RATE);
     }
 }
