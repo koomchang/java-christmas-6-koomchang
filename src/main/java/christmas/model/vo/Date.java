@@ -1,10 +1,13 @@
 package christmas.model.vo;
 
 import christmas.exception.DateInvalidException;
-import christmas.model.enums.Day;
 import christmas.model.enums.SpecialDate;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public record Date(int date) {
+    private static final int YEAR = 2_023;
+    private static final int MONTH = 12;
     private static final int MIN_DATE = 1;
     private static final int MAX_DATE = 31;
     private static final int CHRISTMAS = 25;
@@ -33,15 +36,12 @@ public record Date(int date) {
     }
 
     public static boolean isWeekend(Date date) {
-        return Day.of(date).isWeekend();
+        LocalDate localDate = LocalDate.of(YEAR, MONTH, date.date());
+        return localDate.getDayOfWeek() == DayOfWeek.FRIDAY || localDate.getDayOfWeek() == DayOfWeek.SATURDAY;
     }
 
     public static boolean isWeekday(Date date) {
         return !isWeekend(date);
-    }
-
-    public boolean isChristmas() {
-        return date == CHRISTMAS;
     }
 
     public static boolean isChristmasEventPeriod(Date date) {
