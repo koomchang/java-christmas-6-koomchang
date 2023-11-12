@@ -3,7 +3,7 @@ package christmas.model.vo;
 import static christmas.exception.ExceptionMessages.DATE_INVALID;
 
 import christmas.model.enums.Day;
-import christmas.model.enums.StarredDate;
+import christmas.model.enums.SpecialDate;
 
 public record Date(int date) {
     private static final int MIN_DATE = 1;
@@ -25,8 +25,8 @@ public record Date(int date) {
     }
 
     public static boolean isStarred(Date date) {
-        for (StarredDate starredDate : StarredDate.values()) {
-            if (date.date() == starredDate.getDate()) {
+        for (SpecialDate specialDate : SpecialDate.values()) {
+            if (date.date() == specialDate.getDate()) {
                 return true;
             }
         }

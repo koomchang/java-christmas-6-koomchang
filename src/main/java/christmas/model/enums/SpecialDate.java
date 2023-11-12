@@ -1,6 +1,6 @@
 package christmas.model.enums;
 
-public enum StarredDate {
+public enum SpecialDate {
     THIRD(3),
     TEN(10),
     SEVENTEEN(17),
@@ -10,7 +10,7 @@ public enum StarredDate {
 
     private final int date;
 
-    StarredDate(int date) {
+    SpecialDate(int date) {
         this.date = date;
     }
 
