@@ -3,15 +3,10 @@ package christmas.model.enums;
 import christmas.model.vo.Money;
 
 public enum Badge {
-    산타(20000),
-    트리(10000),
-    별(5000),
+    산타(20_000),
+    트리(10_000),
+    별(5_000),
     없음(0);
-
-    private static final Money Santa = new Money(20000);
-    private static final Money Tree = new Money(10000);
-    private static final Money Star = new Money(5000);
-
 
     private final Money discountRate;
 
@@ -20,13 +15,13 @@ public enum Badge {
     }
 
     public static Badge getBadge(Money totalDiscountAmount) {
-        if (totalDiscountAmount.isGreaterThanOrEqual(Santa)) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(산타.discountRate)) {
             return 산타;
         }
-        if (totalDiscountAmount.isGreaterThanOrEqual(Tree)) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(트리.discountRate)) {
             return 트리;
         }
-        if (totalDiscountAmount.isGreaterThanOrEqual(Star)) {
+        if (totalDiscountAmount.isGreaterThanOrEqual(별.discountRate)) {
             return 별;
         }
         return 없음;
