@@ -34,4 +34,20 @@ class DateTest {
         date = new Date(input);
         assertThat(date.isSpecial()).isFalse();
     }
+
+    @DisplayName("날짜가 주말인지 확인한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 8, 9, 15, 16, 22, 23, 29, 30})
+    void isWeekend(int input) {
+        date = new Date(input);
+        assertThat(Date.isWeekend(date)).isTrue();
+    }
+
+    @DisplayName("날짜가 평일인지 확인한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 18, 19, 20, 31})
+    void isWeekday(int input) {
+        date = new Date(input);
+        assertThat(Date.isWeekday(date)).isTrue();
+    }
 }
