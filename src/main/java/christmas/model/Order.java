@@ -3,7 +3,6 @@ package christmas.model;
 import christmas.exception.OrderInvalidException;
 import christmas.model.enums.Menu;
 import christmas.model.vo.Money;
-import java.util.EnumSet;
 import java.util.Map;
 
 public class Order {
@@ -60,14 +59,17 @@ public class Order {
     }
 
     public int getCountOfMainMenu() {
-        return (int) menus.keySet().stream()
-                .filter(Menu::isMain)
-                .count();
+        return menus.entrySet().stream()
+                .filter(entry -> entry.getKey().isMain())
+                .mapToInt(Map.Entry::getValue)
+                .sum();
+
     }
 
     public int getCountOfDessertMenu() {
-        return (int) menus.keySet().stream()
-                .filter(Menu::isDessert)
-                .count();
+        return menus.entrySet().stream()
+                .filter(entry -> entry.getKey().isDessert())
+                .mapToInt(Map.Entry::getValue)
+                .sum();
     }
 }
