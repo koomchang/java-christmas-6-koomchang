@@ -37,6 +37,10 @@ public record Date(int date) {
 
     public static boolean isWeekend(Date date) {
         LocalDate localDate = LocalDate.of(YEAR, MONTH, date.date());
+        return isFridayOrSaturday(localDate);
+    }
+
+    private static boolean isFridayOrSaturday(LocalDate localDate) {
         return localDate.getDayOfWeek() == DayOfWeek.FRIDAY || localDate.getDayOfWeek() == DayOfWeek.SATURDAY;
     }
 
