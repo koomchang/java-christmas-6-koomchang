@@ -39,4 +39,15 @@ class MoneyTest {
         assertThat(money.minus(moneyToMinus)).isEqualTo(expected);
     }
 
+    @DisplayName("잔액 비교가 가능하다")
+    @ParameterizedTest
+    @ValueSource(ints = {1000})
+    void isGreaterThanOrEqual(int value) {
+        money = new Money(2000);
+        Money moneyToCompare = new Money(value);
+        assertThat(money.isGreaterThanOrEqual(moneyToCompare)).isTrue();
+
+        money = new Money(500);
+        assertThat(money.isGreaterThanOrEqual(moneyToCompare)).isFalse();
+    }
 }

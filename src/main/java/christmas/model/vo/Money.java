@@ -27,11 +27,11 @@ public record Money(int value) {
         return new Money(value + money.value);
     }
 
-    public boolean isGreaterThanOrEqual(Money minimumPurchaseAmount) {
-        return value >= minimumPurchaseAmount.value;
-    }
-
     public Money minus(Money money) {
         return new Money(value - money.value);
+    }
+
+    public boolean isGreaterThanOrEqual(Money minimumPurchaseAmount) {
+        return value >= minimumPurchaseAmount.value;
     }
 }
