@@ -50,4 +50,20 @@ class DateTest {
         date = new Date(input);
         assertThat(Date.isWeekday(date)).isTrue();
     }
+
+    @DisplayName("날짜가 크리스마스 이벤트 기간인지 확인한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 15, 25})
+    void isChristmasEventPeriod(int input) {
+        date = new Date(input);
+        assertThat(Date.isChristmasEventPeriod(date)).isTrue();
+    }
+
+    @DisplayName("날짜가 크리스마스 이벤트 기간이 아닌지 확인한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {26, 31})
+    void isNotChristmasEventPeriod(int input) {
+        date = new Date(input);
+        assertThat(Date.isChristmasEventPeriod(date)).isFalse();
+    }
 }
