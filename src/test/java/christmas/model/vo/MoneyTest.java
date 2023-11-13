@@ -12,7 +12,7 @@ class MoneyTest {
 
     @DisplayName("잔액은 음수가 될 수 없다.")
     @ParameterizedTest
-    @ValueSource(ints = {-1, -1000})
+    @ValueSource(ints = {-1, -1_000})
     void validateIfNegative(int value) {
         assertThatIllegalArgumentException().isThrownBy(
                 () -> money = new Money(value)
@@ -21,29 +21,29 @@ class MoneyTest {
 
     @DisplayName("잔액끼리 더할 수 있다.")
     @ParameterizedTest
-    @ValueSource(ints = {2000})
+    @ValueSource(ints = {2_000})
     void plus(int value) {
-        money = new Money(1000);
+        money = new Money(1_000);
         Money moneyToPlus = new Money(value);
-        Money expected = new Money(3000);
+        Money expected = new Money(3_000);
         assertThat(money.plus(moneyToPlus)).isEqualTo(expected);
     }
 
     @DisplayName("잔액끼리 뺄 수 있다.")
     @ParameterizedTest
-    @ValueSource(ints = {1000})
+    @ValueSource(ints = {1_000})
     void minus(int value) {
-        money = new Money(2000);
+        money = new Money(2_000);
         Money moneyToMinus = new Money(value);
-        Money expected = new Money(1000);
+        Money expected = new Money(1_000);
         assertThat(money.minus(moneyToMinus)).isEqualTo(expected);
     }
 
     @DisplayName("잔액 비교가 가능하다")
     @ParameterizedTest
-    @ValueSource(ints = {1000})
+    @ValueSource(ints = {1_000})
     void isGreaterThanOrEqual(int value) {
-        money = new Money(2000);
+        money = new Money(2_000);
         Money moneyToCompare = new Money(value);
         assertThat(money.isGreaterThanOrEqual(moneyToCompare)).isTrue();
 
