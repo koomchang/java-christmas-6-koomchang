@@ -1,5 +1,7 @@
 package christmas.model.vo;
 
+import christmas.exception.InvalidMoneyException;
+
 public record Money(int value) {
     private static final int ZERO = 0;
 
@@ -13,7 +15,7 @@ public record Money(int value) {
 
     private void validateMoneyNotNegative() {
         if (value < ZERO) {
-            throw new IllegalArgumentException("음수는 입력할 수 없습니다.");
+            throw new InvalidMoneyException();
         }
     }
 
