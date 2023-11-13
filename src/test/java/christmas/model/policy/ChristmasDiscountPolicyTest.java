@@ -25,8 +25,8 @@ class ChristmasDiscountPolicyTest {
     @ValueSource(ints = {26, 27, 28, 29, 30})
     void calculateIfNotChristmasEventPeriod(int date) {
         Date eventDate = new Date(date);
-        assertThat(christmasDiscountPolicy.calculate(eventDate, order)).
-                isEqualTo(Money.zero());
+        assertThat(christmasDiscountPolicy.calculate(eventDate, order))
+                .isEqualTo(Money.zero());
     }
 
     @DisplayName("디데이 할인 정책에 따른 할인 금액을 계산한다.")
@@ -34,7 +34,7 @@ class ChristmasDiscountPolicyTest {
     @ValueSource(ints = {1, 2, 13, 17, 25})
     void calculate(int date) {
         Date eventDate = new Date(date);
-        assertThat(christmasDiscountPolicy.calculate(eventDate, order)).
-                isEqualTo(new Money(1_000 + 100 * (date - 1)));
+        assertThat(christmasDiscountPolicy.calculate(eventDate, order))
+                .isEqualTo(new Money(1_000 + 100 * (date - 1)));
     }
 }

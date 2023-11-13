@@ -26,15 +26,15 @@ class DayDiscountPolicyTest {
     @ParameterizedTest
     @ValueSource(ints = {3})
     void calculateIfWeekday(int date) {
-        assertThat(dayDiscountPolicy.calculate(new Date(date), order)).
-                isEqualTo(new Money(DISCOUNT_RATE * menuAndCount.get(Menu.초코케이크)));
+        assertThat(dayDiscountPolicy.calculate(new Date(date), order))
+                .isEqualTo(new Money(DISCOUNT_RATE * menuAndCount.get(Menu.초코케이크)));
     }
 
     @DisplayName("주말에는 메인메뉴의 수량에 따라 할인 금액을 계산한다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 8, 9})
     void calculateIfWeekend(int date) {
-        assertThat(dayDiscountPolicy.calculate(new Date(date), order)).
-                isEqualTo(new Money(DISCOUNT_RATE * menuAndCount.get(Menu.바비큐립)));
+        assertThat(dayDiscountPolicy.calculate(new Date(date), order))
+                .isEqualTo(new Money(DISCOUNT_RATE * menuAndCount.get(Menu.바비큐립)));
     }
 }

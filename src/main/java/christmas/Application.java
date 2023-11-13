@@ -14,14 +14,14 @@ import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        EventPlanner eventPlanner = new EventPlanner(
+        final EventPlanner eventPlanner = new EventPlanner(
                 new ChristmasDiscountPolicy(),
                 new DayDiscountPolicy(),
                 new GiftEventPolicy(),
                 new SpecialDiscountPolicy()
         );
 
-        ChristmasPromotionController christmasPromotionController = new ChristmasPromotionController(
+        final ChristmasPromotionController christmasPromotionController = new ChristmasPromotionController(
                 new OutputView(),
                 new InputView(
                         new VisitDateInputValidator(),
