@@ -33,6 +33,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
             String count = menuAndCount[1];
             validateIfMenuAndCountEmpty(menu, count);
             validateIfCountNumeric(count);
+            validateEndsWithComma(input);
             this.menuAndCount.put(Menu.of(menu), Integer.parseInt(count));
         }
     }
@@ -52,6 +53,12 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         try {
             Integer.parseInt(count);
         } catch (NumberFormatException e) {
+            throw new OrderInvalidException();
+        }
+    }
+
+    private void validateEndsWithComma(String input) {
+        if (input.endsWith(",")) {
             throw new OrderInvalidException();
         }
     }
