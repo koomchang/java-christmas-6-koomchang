@@ -22,7 +22,7 @@ public class OutputView {
     private static final String SPECIAL_DISCOUNT = "특별 할인: -%s원" + LINE_SEPARATOR;
     private static final String GIFT_EVENT = "증정 이벤트: -%s원" + LINE_SEPARATOR;
     private static final String TOTAL_BENEFITS_PRICE_MESSAGE = LINE_SEPARATOR + "<총혜택 금액>";
-    private static final String TOTAL_BENEFITS_PRICE = "%s원" + LINE_SEPARATOR;
+    private static final String TOTAL_BENEFITS_PRICE = "-%s원" + LINE_SEPARATOR;
     private static final String TOTAL_PRICE_AFTER_DISCOUNT_MESSAGE = LINE_SEPARATOR + "<할인 후 예상 결제 금액>";
     private static final String TOTAL_PRICE_AFTER_DISCOUNT = "%s원" + LINE_SEPARATOR;
     private static final String EVENT_BADGE_MESSAGE = LINE_SEPARATOR + "<12월 이벤트 배지>";
