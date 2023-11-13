@@ -19,18 +19,8 @@ public class Order {
     }
 
     public void validate(Map<Menu, Integer> menus) {
-        validateDuplicateMenu(menus);
         validateMenuCount(menus);
         validateOnlyBeverage(menus);
-    }
-
-    private void validateDuplicateMenu(Map<Menu, Integer> menus) {
-        EnumSet<Menu> uniqueMenus = EnumSet.noneOf(Menu.class);
-        for (Menu menu : menus.keySet()) {
-            if (!uniqueMenus.add(menu)) {
-                throw new OrderInvalidException();
-            }
-        }
     }
 
     private void validateMenuCount(Map<Menu, Integer> menus) {
