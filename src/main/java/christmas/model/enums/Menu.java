@@ -53,10 +53,6 @@ public enum Menu {
         return type == MenuType.디저트;
     }
 
-    public String getType() {
-        return type.name();
-    }
-
     public int getPrice() {
         return price;
     }
