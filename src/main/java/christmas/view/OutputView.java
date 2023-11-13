@@ -62,8 +62,13 @@ public class OutputView {
         System.out.println(NOTHING);
     }
 
-    public void printBenefits(boolean isWeekend, int christmasDiscount, int dayDiscount, int specialDiscount,
-                              int giftEventDiscount) {
+    public void printBenefits(
+            boolean isWeekend,
+            int christmasDiscount,
+            int dayDiscount,
+            int specialDiscount,
+            int giftEventDiscount
+    ) {
         System.out.println(BENEFITS_MESSAGE);
         printBenefitsForChristmasDiscount(christmasDiscount);
         printBenefitsForWeekday(isWeekend, dayDiscount);

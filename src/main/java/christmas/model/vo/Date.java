@@ -4,6 +4,7 @@ import christmas.exception.DateInvalidException;
 import christmas.model.enums.SpecialDate;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public record Date(int date) {
     private static final int YEAR = 2_023;
@@ -26,13 +27,9 @@ public record Date(int date) {
         return date < MIN_DATE || date > MAX_DATE;
     }
 
-    public static boolean isSpecial(Date date) {
-        for (SpecialDate specialDate : SpecialDate.values()) {
-            if (date.date() == specialDate.getDate()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean isSpecial() {
+        return Arrays.stream(SpecialDate.values())
+                .anyMatch(specialDate -> date == specialDate.getDate());
     }
 
     public static boolean isWeekend(Date date) {

@@ -9,7 +9,7 @@ public class SpecialDiscountPolicy implements DiscountPolicy {
 
     @Override
     public Money calculate(Date eventDate, Order order) {
-        if (Date.isSpecial(eventDate)) {
+        if (eventDate.isSpecial()) {
             return new Money(SPECIAL_DISCOUNT);
         }
         return Money.zero();
