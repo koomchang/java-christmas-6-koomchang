@@ -3,8 +3,9 @@ package christmas.validator;
 import christmas.exception.OrderInvalidException;
 import christmas.model.enums.Menu;
 import java.util.EnumMap;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
     private static final int MAX_MENU_COUNT = 20;
@@ -18,8 +19,8 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
     @Override
     public void validate(String input) {
         validateMenuFormat(input);
+        validateDuplicateMenu(input);
         validateMenuInMenuList(menuAndCount);
-        validateDuplicateMenu(menuAndCount);
         validateOnlyBeverage(menuAndCount);
         validateMenuCount(menuAndCount);
     }
@@ -83,10 +84,13 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         }
     }
 
-    private void validateDuplicateMenu(Map<Menu, Integer> menus) {
-        EnumSet<Menu> uniqueMenus = EnumSet.noneOf(Menu.class);
-        for (Menu menu : menus.keySet()) {
-            if (!uniqueMenus.add(menu)) {
+    private void validateDuplicateMenu(String input) {
+        Set<String> uniqueMenus = new HashSet<>();
+        String[] orders = input.split(",");
+        for (String order : orders) {
+            String[] menuAndCount = order.split("-");
+            String menuName = menuAndCount[0];
+            if (!uniqueMenus.add(menuName)) {
                 throw new OrderInvalidException();
             }
         }
