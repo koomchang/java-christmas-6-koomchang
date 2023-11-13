@@ -13,8 +13,6 @@ import christmas.model.vo.Money;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class EventPlannerTest {
     private final EventPlanner eventPlanner = new EventPlanner(
