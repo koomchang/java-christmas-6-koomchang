@@ -8,6 +8,7 @@ import christmas.model.policy.GiftEventPolicy;
 import christmas.model.policy.SpecialDiscountPolicy;
 import christmas.validator.OrderMenuAndCountInputValidator;
 import christmas.validator.VisitDateInputValidator;
+import christmas.view.InputParser;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -24,8 +25,8 @@ public class Application {
                 new OutputView(),
                 new InputView(
                         new VisitDateInputValidator(),
-                        new OrderMenuAndCountInputValidator()
-                ),
+                        new OrderMenuAndCountInputValidator(),
+                        new InputParser()),
                 eventPlanner);
 
         christmasPromotionController.run();

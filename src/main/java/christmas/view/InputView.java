@@ -3,7 +3,6 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import christmas.model.enums.Menu;
 import christmas.validator.BasicValidator;
-import java.util.EnumMap;
 import java.util.Map;
 
 public class InputView {
@@ -12,13 +11,16 @@ public class InputView {
 
     private final BasicValidator<String> visitDateInputValidator;
     private final BasicValidator<String> orderMenuAndCountInputValidator;
+    private final InputParser inputParser;
 
     public InputView(
             BasicValidator<String> visitDateInputValidator,
-            BasicValidator<String> orderMenuAndCountInputValidator
+            BasicValidator<String> orderMenuAndCountInputValidator,
+            InputParser inputParser
     ) {
         this.visitDateInputValidator = visitDateInputValidator;
         this.orderMenuAndCountInputValidator = orderMenuAndCountInputValidator;
+        this.inputParser = inputParser;
     }
 
     public int inputVisitDate() {
@@ -32,20 +34,6 @@ public class InputView {
         System.out.println(ORDER_PROMPT);
         String input = Console.readLine();
         orderMenuAndCountInputValidator.validate(input);
-        return parseOrderMenuAndCount(input);
-    }
-
-    private Map<Menu, Integer> parseOrderMenuAndCount(String ordersInput) {
-        Map<Menu, Integer> ordersMap = new EnumMap<>(Menu.class);
-        String[] orders = ordersInput.split(",");
-        for (String order : orders) {
-            String[] menuAndCount = order.split("-");
-            String menuName = menuAndCount[0];
-            String countStr = menuAndCount[1];
-            Menu menu = Menu.of(menuName);
-            int count = Integer.parseInt(countStr);
-            ordersMap.put(menu, count);
-        }
-        return ordersMap;
+        return inputParser.parseOrderMenuAndCount(input);
     }
 }
