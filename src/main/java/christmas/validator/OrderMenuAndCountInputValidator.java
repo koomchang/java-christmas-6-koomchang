@@ -1,6 +1,6 @@
 package christmas.validator;
 
-import christmas.exception.OrderInvalidException;
+import christmas.exception.InvalidOrderException;
 import christmas.model.enums.Menu;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -41,7 +41,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
 
     private void validateOnlyBeverage(Map<Menu, Integer> menus) {
         if (hasOnlyBeverage(menus)) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
@@ -54,32 +54,32 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         try {
             Integer.parseInt(count);
         } catch (NumberFormatException e) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
     private void validateEndsWithComma(String input) {
         if (input.endsWith(",")) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
     private void validateIfMenuAndCountEmpty(String menu, String count) {
         if (menu.isEmpty() || count.isEmpty()) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
     private void validateMenuAndCountLength(String[] menuAndCount) {
         if (menuAndCount.length != 2) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
     private void validateMenuInMenuList(Map<Menu, Integer> menus) {
         for (Menu menu : menus.keySet()) {
             if (!menuAndCount.containsKey(menu)) {
-                throw new OrderInvalidException();
+                throw new InvalidOrderException();
             }
         }
     }
@@ -91,7 +91,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
             String[] menuAndCount = order.split("-");
             String menuName = menuAndCount[0];
             if (!uniqueMenus.add(menuName)) {
-                throw new OrderInvalidException();
+                throw new InvalidOrderException();
             }
         }
     }
@@ -100,7 +100,7 @@ public class OrderMenuAndCountInputValidator implements BasicValidator<String> {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum() > MAX_MENU_COUNT) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 }

@@ -1,6 +1,6 @@
 package christmas.model;
 
-import christmas.exception.OrderInvalidException;
+import christmas.exception.InvalidOrderException;
 import christmas.model.enums.Menu;
 import christmas.model.vo.Money;
 import java.util.Map;
@@ -26,13 +26,13 @@ public class Order {
         if (menus.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum() > MAX_MENU_COUNT) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 
     private void validateOnlyBeverage(Map<Menu, Integer> menus) {
         if (hasOnlyBeverage(menus)) {
-            throw new OrderInvalidException();
+            throw new InvalidOrderException();
         }
     }
 

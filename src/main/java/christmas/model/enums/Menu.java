@@ -1,6 +1,6 @@
 package christmas.model.enums;
 
-import christmas.exception.OrderInvalidException;
+import christmas.exception.InvalidOrderException;
 
 public enum Menu {
     양송이수프(MenuType.애피타이저, 6_000),
@@ -34,7 +34,7 @@ public enum Menu {
                 return menu;
             }
         }
-        throw new OrderInvalidException();
+        throw new InvalidOrderException();
     }
 
     public static Menu gift() {

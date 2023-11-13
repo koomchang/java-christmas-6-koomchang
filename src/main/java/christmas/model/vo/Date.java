@@ -1,6 +1,6 @@
 package christmas.model.vo;
 
-import christmas.exception.DateInvalidException;
+import christmas.exception.InvalidDateException;
 import christmas.model.enums.SpecialDate;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ public record Date(int date) {
 
     private void validate(int date) {
         if (isOutOfRange(date)) {
-            throw new DateInvalidException();
+            throw new InvalidDateException();
         }
     }
 
