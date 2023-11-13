@@ -6,14 +6,14 @@ public record Money(int value) {
     private static final int ZERO = 0;
 
     public Money {
-        validate();
+        validate(value);
     }
 
-    private void validate() {
-        validateMoneyNotNegative();
+    private void validate(int value) {
+        validateMoneyNotNegative(value);
     }
 
-    private void validateMoneyNotNegative() {
+    private void validateMoneyNotNegative(int value) {
         if (value < ZERO) {
             throw new InvalidMoneyException();
         }
