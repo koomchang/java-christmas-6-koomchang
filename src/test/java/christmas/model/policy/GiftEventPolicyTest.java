@@ -13,7 +13,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class GiftEventPolicyTest {
-    private static final Money MINIMUM_PURCHASE_AMOUNT = new Money(120_000);
     private static final Money GIFT_EVENT_DISCOUNT = new Money(25_000);
 
     private final GiftEventPolicy giftEventPolicy = new GiftEventPolicy();
@@ -36,5 +35,21 @@ class GiftEventPolicyTest {
     @ValueSource(ints = {119_000, 100_000})
     void calculateIfGiftEventNotEligible(int orderAmount) {
         assertThat(giftEventPolicy.isGiftEventEligible(new Money(orderAmount))).isFalse();
+    }
+
+    @DisplayName("증정 이벤트가 적용되면 할인 금액을 반환한다.")
+    @Test
+    void calculateIfGiftEventEligible() {
+        assertThat(giftEventPolicy.calculate(new Date(1), order)).isEqualTo(GIFT_EVENT_DISCOUNT);
+    }
+
+    @DisplayName("증정 이벤트가 적용되지 않으면 할인 금액은 0원이다.")
+    @Test
+    void calculateIfGiftEventNotEligible() {
+        Map<Menu, Integer> menuAndCount = Map.of(
+                Menu.바비큐립, 1
+        );
+        Order order = new Order(menuAndCount);
+        assertThat(giftEventPolicy.calculate(new Date(1), order)).isEqualTo(Money.zero());
     }
 }
