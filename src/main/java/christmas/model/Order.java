@@ -17,7 +17,7 @@ public class Order {
         this.menus = menus;
     }
 
-    public void validate(Map<Menu, Integer> menus) {
+    private void validate(Map<Menu, Integer> menus) {
         validateMenuCount(menus);
         validateOnlyBeverage(menus);
     }
